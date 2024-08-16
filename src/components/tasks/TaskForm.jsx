@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useApi from "../hooks/useApi";
+import useApi from "../../hooks/useApi";
 
 const TaskForm = () => {
   const [title, setTitle] = useState("");
@@ -28,7 +28,7 @@ const TaskForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-7 bg-gray-100 shadow-lg rounded-lg m-6"
+      className="max-w-md mx-auto p-7 bg-white shadow-lg rounded-md border border-gray-300 m-6"
     >
       <div className="mb-6 p-6">
         <label
@@ -43,11 +43,11 @@ const TaskForm = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Introduce el titulo de la Tarea"
-          className="shadow-sm appearance-none border border-gray-400 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+          className="shadow-sm appearance-none border border-gray-400 rounded-md w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
           required
         />
       </div>
-      <div className="mb-6">
+      <div className="mb-6 p-6">
         <label
           className="block text-gray-800 text-sm font-medium mb-2"
           htmlFor="description"
@@ -59,14 +59,14 @@ const TaskForm = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Introduce descripción de la Tarea."
-          className="shadow-sm appearance-none border border-gray-400 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+          className="shadow-sm appearance-none border border-gray-400 rounded-md w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
           required
         />
       </div>
       <div className="flex items-center justify-between">
         <button
           type="submit"
-          className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+          className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
           disabled={loading}
         >
           {loading ? "Creando..." : "Crear Tarea"}

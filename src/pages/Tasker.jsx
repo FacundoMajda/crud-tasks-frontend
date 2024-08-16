@@ -1,5 +1,5 @@
-import TaskForm from "../components/TaskForm";
-import TaskTable from "../components/TaskTable";
+import TaskForm from "../components/tasks/TaskForm";
+import TaskTable from "../components/tasks/TaskTable";
 const Tasker = () => {
   return (
     <div className="grid grid-cols-3 gap-4">
