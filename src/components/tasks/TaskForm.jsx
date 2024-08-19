@@ -1,18 +1,14 @@
 import { useState } from "react";
-import useApi from "../../hooks/useApi";
+import { createTask } from "../../services/api";
 
 const TaskForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { loading, error, fetchData } = useApi(
-    "http://127.0.0.1:3000/api/tasks",
-    "post"
-  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetchData({ title, description });
+      await createTask({ title, description });
       setTitle("");
       setDescription("");
       window.location.reload();
@@ -21,8 +17,6 @@ const TaskForm = () => {
     }
   };
 
-  console.log("Loading:", loading);
-  console.log("Error:", error);
   console.log("Body:", { title, description });
 
   return (
@@ -67,12 +61,10 @@ const TaskForm = () => {
         <button
           type="submit"
           className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-          disabled={loading}
         >
-          {loading ? "Creando..." : "Crear Tarea"}
+          Crear
         </button>
       </div>
-      {error && <p className="text-red-500 text-sm mt-4">{error.message}</p>}
     </form>
   );
 };

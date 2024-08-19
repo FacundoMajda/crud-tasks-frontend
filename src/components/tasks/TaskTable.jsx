@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
+import { deleteTask, getAllTasks, updateTask } from "../../services/api";
 
 const TaskTable = () => {
   const [tasks, setTasks] = useState([]);
@@ -13,13 +14,10 @@ const TaskTable = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/tasks");
-      if (!response.ok) {
-        throw new Error("🚫 ¡Algo salió mal al buscar tareas!");
-      }
-      const data = await response.json();
+      const response = await getAllTasks();
+      const data = response;
       setTasks(data);
-      console.log("🎉 Tareas pescadas con éxito!");
+      console.log("🎉 Tareas obtenidas con éxito!");
     } catch (error) {
       console.error("😱 ¡Error al buscar tareas:", error);
     }
@@ -30,27 +28,15 @@ const TaskTable = () => {
     setIsEditing(true);
   };
 
-  const handleSave = async () => {
+  const handleUpdate = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/tasks/${editingTask.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editingTask),
-        }
-      );
+      // const response =
+      await updateTask(editingTask.id, editingTask);
 
-      if (!response.ok) {
-        throw new Error("😭 ¡No se pudo actualizar la tarea!");
-      }
-
-      fetchTasks();
       setIsEditing(false);
       console.log("😎 Tarea actualizada con éxito!");
-      window.location.reload();
+      fetchTasks();
+      // window.location.reload();
     } catch (error) {
       console.error("😱 ¡Error al actualizar la tarea:", error);
     }
@@ -58,19 +44,9 @@ const TaskTable = () => {
 
   const handleDelete = async (taskId) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/tasks/${taskId}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("😭 ¡No se pudo eliminar la tarea!");
-      }
-
-      fetchTasks();
+      await deleteTask(taskId);
       console.log("😎 Tarea eliminada con éxito!");
+      fetchTasks();
       window.location.reload();
     } catch (error) {
       console.error("😱 ¡Error al eliminar la tarea:", error);
@@ -191,7 +167,7 @@ const TaskTable = () => {
             </div>
             <div className="flex justify-end mt-4">
               <button
-                onClick={handleSave}
+                onClick={handleUpdate}
                 className="px-4 py-2 rounded-md text-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 Guardar

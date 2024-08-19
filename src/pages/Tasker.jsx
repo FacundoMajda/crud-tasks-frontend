@@ -1,13 +1,14 @@
 import TaskForm from "../components/tasks/TaskForm";
 import TaskTable from "../components/tasks/TaskTable";
+
 const Tasker = () => {
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <div className="col-span-2">
-        <TaskTable />
-      </div>
-      <div>
+    <div className="flex flex-col md:flex-row gap-4 w-full">
+      <div className="w-full md:w-1/2">
         <TaskForm />
+      </div>
+      <div className="w-full md:w-1/2">
+        <TaskTable />
       </div>
     </div>
   );
